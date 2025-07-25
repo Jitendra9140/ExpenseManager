@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { categorySchema } from "@/lib/validations"
-import { getCurrentUser } from "@/lib/auth"
+import { getCurrentUser } from "@/app/auth"
 import { prisma } from "@/lib/prisma"
 
 export async function POST(request: NextRequest) {

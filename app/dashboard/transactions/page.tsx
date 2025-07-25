@@ -1,5 +1,4 @@
-'use client';
-import { getCurrentUser } from "@/lib/auth"
+import { getCurrentUser } from "@/app/auth"
 import { prisma } from "@/lib/prisma"
 import { DataTable } from "./data-table"
 import { columns } from "./columns"

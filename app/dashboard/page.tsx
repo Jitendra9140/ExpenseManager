@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation"
-import { getCurrentUser } from "@/lib/auth"
+import { getCurrentUser } from "@/app/auth"
 import { getDashboardData } from "@/lib/actions"
 import { prisma } from "@/lib/prisma"
 import { DashboardStats } from "@/components/dashboard-stats"

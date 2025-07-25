@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { signupSchema } from "@/lib/validations"
-import { hashPassword, generateToken, createDefaultCategories } from "@/lib/auth"
+import { hashPassword, generateToken, createDefaultCategories } from "@/app/auth"
 import { prisma } from "@/lib/prisma"
 
 export async function POST(request: NextRequest) {

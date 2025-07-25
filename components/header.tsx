@@ -6,7 +6,7 @@ import { useToast } from "@/hooks/use-toast"
 import { LogOut, Moon, Sun, Menu, X } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useState } from "react"
-import type { User } from "@/lib/auth"
+import type { User } from "@/app/auth"
 
 interface HeaderProps {
   user: User

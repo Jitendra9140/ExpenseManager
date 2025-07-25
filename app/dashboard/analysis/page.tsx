@@ -1,12 +1,10 @@
-'use client';
-import { getCurrentUser } from "@/lib/auth"
+import { getCurrentUser } from "@/app/auth"
 import { prisma } from "@/lib/prisma"
 import { redirect } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { TransactionFilters } from "@/components/transaction-filters"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Decimal } from "@prisma/client/runtime/library";
 
 interface SearchParams {
   category?: string

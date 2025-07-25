@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/lib/auth"
+import { getCurrentUser } from "@/app/auth"
 import { Header } from "@/components/header"
 
 export default async function DashboardLayout({

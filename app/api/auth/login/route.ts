@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { loginSchema } from "@/lib/validations"
-import { verifyPassword, generateToken } from "@/lib/auth"
+import { verifyPassword, generateToken } from "@/app/auth"
 import { prisma } from "@/lib/prisma"
 
 export async function POST(request: NextRequest) {

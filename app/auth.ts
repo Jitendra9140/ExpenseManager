@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import { cookies } from "next/headers"
-import { prisma } from "../lib/prisma"
+import { prisma } from "@/lib/prisma"
 
 const JWT_SECRET = process.env.JWT_SECRET
 
@@ -37,6 +37,12 @@ export function verifyToken(token: string): User | null {
 
 export async function getCurrentUser(): Promise<User | null> {
   try {
+    // Check if we're in a server environment that supports cookies
+    if (typeof window !== 'undefined') {
+      // Client-side - cookies() won't work here
+      return null
+    }
+
     const cookieStore = await cookies()
     const token = cookieStore.get("auth-token")?.value
 
@@ -52,9 +58,16 @@ export async function getCurrentUser(): Promise<User | null> {
     })
 
     return dbUser
-  } catch {
+  } catch (error) {
+    console.error('Error getting current user:', error)
     return null
   }
+}
+
+// Alternative function for client-side token verification
+export function getCurrentUserFromToken(token: string): User | null {
+  if (!token) return null
+  return verifyToken(token)
 }
 
 export async function createDefaultCategories(userId: string) {

@@ -1,3 +1,4 @@
+'use client';
 import { getCurrentUser } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { DataTable } from "./data-table"

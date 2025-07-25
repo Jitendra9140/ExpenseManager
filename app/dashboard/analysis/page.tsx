@@ -1,18 +1,12 @@
+'use client';
 import { getCurrentUser } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { redirect } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { TransactionFilters } from "@/components/transaction-filters"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { Decimal } from "@prisma/client/runtime/library";
 
 interface SearchParams {
   category?: string
@@ -28,7 +22,7 @@ interface Category {
 interface Transaction {
   id: string
   type: "INCOME" | "EXPENSE"
-  amount: number | string
+  amount: number | string 
   note?: string | null
   date: Date
   category: {

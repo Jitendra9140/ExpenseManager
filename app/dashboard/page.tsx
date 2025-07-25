@@ -1,3 +1,4 @@
+'use client';
 import { redirect } from "next/navigation"
 import { getCurrentUser } from "@/lib/auth"
 import { getDashboardData } from "@/lib/actions"
@@ -6,7 +7,6 @@ import { DashboardStats } from "@/components/dashboard-stats"
 import { RecentTransactions } from "@/components/recent-transactions"
 import { CategoryExpenses } from "@/components/category-expenses"
 import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import Link from "next/link"
 import { AddTransactionDialog } from "@/components/add-transaction-dialog"
 import { ManageCategoriesDialog } from "@/components/manage-categories-dialog"

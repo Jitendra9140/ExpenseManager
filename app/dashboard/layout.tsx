@@ -10,7 +10,6 @@ export default async function DashboardLayout({
 }) {
   const user = await getCurrentUser()
 
-  // Redirect to login if user is not authenticated
   if (!user) {
     redirect("/login")
   }
@@ -18,9 +17,7 @@ export default async function DashboardLayout({
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <Header user={user} />
-      <div className="h-[calc(100vh-4rem)] overflow-hidden p-2">
-        <div className="mx-auto max-w-7xl">{children}</div>
-      </div>
+      <main className="container mx-auto px-4 py-8">{children}</main>
     </div>
   )
 }

@@ -78,7 +78,7 @@ export default async function AnalysisPage({
   return (
     <div className="flex flex-col p h-screen max-h-screen overflow-hidden">
       {/* Fixed Header */}
-      <div className="flex-shrink-0 p-4 sm:p-6 border-b bg-background">
+      <div className="flex-shrink-0 p-4 sm:p-6 border-b ">
         <h1 className="text-2xl sm:text-3xl font-bold">Analysis</h1>
       </div>
 

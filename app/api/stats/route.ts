@@ -52,22 +52,27 @@ export async function GET() {
       },
     })
 
-    const totalExpenses = expenses._sum.amount || 0
+    // Fix: Ensure totalExpenses is always a number
+    const totalExpenses = Number(expenses._sum.amount) || 0
+    
     const formattedCategoryExpenses = categoryExpenses.map((ce) => {
       const category = categories.find((c) => c.id === ce.categoryId)
+      const amount = Number(ce._sum.amount) || 0
+      
       return {
         categoryId: ce.categoryId,
         categoryName: category?.name || "Unknown",
-        amount: Number(ce._sum.amount) || 0,
-        percentage: ((Number(ce._sum.amount) || 0) / totalExpenses) * 100,
+        amount,
+        // Fix: Now totalExpenses is guaranteed to be a number
+        percentage: totalExpenses > 0 ? (amount / totalExpenses) * 100 : 0,
       }
     })
 
     return NextResponse.json({
       stats: {
-        balance: (income._sum.amount || 0) - (expenses._sum.amount || 0),
-        totalIncome: income._sum.amount || 0,
-        totalExpenses: expenses._sum.amount || 0,
+        balance: Number(income._sum.amount || 0) - Number(expenses._sum.amount || 0),
+        totalIncome: Number(income._sum.amount) || 0,
+        totalExpenses: Number(expenses._sum.amount) || 0,
       },
       categoryExpenses: formattedCategoryExpenses,
     })

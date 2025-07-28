@@ -5,11 +5,14 @@ import { columns } from "./columns"
 import { redirect } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { Decimal } from "@prisma/client/runtime/library"
+
 export default async function TransactionsPage() {
   const user = await getCurrentUser()
   if (!user) {
     redirect("/login")
   }
+
   const transactions = await prisma.transaction.findMany({
     where: {
       userId: user.id,
@@ -21,12 +24,16 @@ export default async function TransactionsPage() {
       date: "desc",
     },
   })
+
   // Transform the data for client-side rendering
   const formattedTransactions = transactions.map((transaction) => ({
     ...transaction,
-    amount: Number(transaction.amount),
+    amount: transaction.amount instanceof Decimal 
+      ? transaction.amount.toNumber() 
+      : Number(transaction.amount),
     date: transaction.date.toISOString(),
   }))
+
   return (
     <ScrollArea className="h-screen">
       <div className="space-y-4">

@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { TransactionFilters } from "@/components/transaction-filters"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { Decimal } from "@prisma/client/runtime/library"
 
 interface SearchParams {
   category?: string
@@ -20,7 +21,7 @@ interface Category {
 interface Transaction {
   id: string
   type: "INCOME" | "EXPENSE"
-  amount: number | string
+  amount: Decimal
   note?: string | null
   date: Date
   category: {
@@ -65,7 +66,7 @@ export default async function AnalysisPage({
     },
   })
 
-  const formatCurrency = (amount: number | string) => {
+  const formatCurrency = (amount: number | string | Decimal) => {
     return new Intl.NumberFormat("en-IN", {
       style: "currency",
       currency: "INR",

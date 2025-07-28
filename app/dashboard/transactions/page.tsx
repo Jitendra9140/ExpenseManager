@@ -32,6 +32,7 @@ export default async function TransactionsPage() {
       ? transaction.amount.toNumber() 
       : Number(transaction.amount),
     date: transaction.date.toISOString(),
+    note: transaction.note ?? undefined, // Convert null to undefined
   }))
 
   return (

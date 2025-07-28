@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState } from "react"
@@ -47,7 +46,7 @@ export function AddTransactionDialog({ categories = [] }: AddTransactionDialogPr
   } = useForm<TransactionInput>({
     resolver: zodResolver(transactionSchema),
     defaultValues: {
-      date: new Date().toISOString().split('T')[0], // Fix date format for input
+      date: new Date(), // Use Date object instead of string
     },
   })
 
@@ -61,7 +60,10 @@ export function AddTransactionDialog({ categories = [] }: AddTransactionDialogPr
       const response = await fetch("/api/transactions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          date: data.date instanceof Date ? data.date.toISOString() : data.date,
+        }),
       })
 
       if (response.ok) {
@@ -156,7 +158,14 @@ export function AddTransactionDialog({ categories = [] }: AddTransactionDialogPr
 
           <div className="space-y-2">
             <Label htmlFor="date">Date</Label>
-            <Input id="date" type="date" {...register("date")} />
+            <Input 
+              id="date" 
+              type="date" 
+              {...register("date", {
+                setValueAs: (value) => value ? new Date(value) : new Date()
+              })}
+              defaultValue={new Date().toISOString().split('T')[0]}
+            />
             {errors.date && <p className="text-sm text-red-600">{errors.date.message}</p>}
           </div>
 

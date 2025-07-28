@@ -1,4 +1,5 @@
-import { getCurrentUser } from "@/app/auth"
+import type React from "react"
+import { getCurrentUser } from "@/lib/auth"
 import { Header } from "@/components/header"
 
 export default async function DashboardLayout({

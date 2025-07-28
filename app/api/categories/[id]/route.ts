@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { getCurrentUser } from "@/app/auth"
+import { getCurrentUser } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {

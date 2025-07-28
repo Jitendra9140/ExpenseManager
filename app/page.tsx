@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/app/auth"
+import { getCurrentUser } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"

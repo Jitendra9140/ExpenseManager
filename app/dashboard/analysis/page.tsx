@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/app/auth"
+import { getCurrentUser } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { redirect } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
@@ -20,7 +20,7 @@ interface Category {
 interface Transaction {
   id: string
   type: "INCOME" | "EXPENSE"
-  amount: number | string 
+  amount: number | string
   note?: string | null
   date: Date
   category: {
@@ -95,14 +95,12 @@ export default async function AnalysisPage({
                   <div className="w-full">
                     <TransactionFilters categories={categories} />
                   </div>
-                  
+
                   {/* Transactions List */}
                   <div className="space-y-3 sm:space-y-4">
                     {transactions.length === 0 ? (
                       <Card className="p-6 sm:p-8 text-center">
-                        <p className="text-muted-foreground text-sm sm:text-base">
-                          No transactions found
-                        </p>
+                        <p className="text-muted-foreground text-sm sm:text-base">No transactions found</p>
                       </Card>
                     ) : (
                       <>
@@ -112,7 +110,7 @@ export default async function AnalysisPage({
                               {/* Left Section - Category and Note */}
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2 mb-1 flex-wrap">
-                                  <Badge 
+                                  <Badge
                                     variant={transaction.type === "INCOME" ? "default" : "destructive"}
                                     className="text-xs"
                                   >
@@ -128,27 +126,29 @@ export default async function AnalysisPage({
                                   </p>
                                 )}
                               </div>
-                              
+
                               {/* Right Section - Amount and Date */}
                               <div className="flex-shrink-0 text-left sm:text-right">
-                                <p className={`font-medium text-sm sm:text-base ${
-                                  transaction.type === "INCOME" ? "text-green-600" : "text-red-600"
-                                }`}>
+                                <p
+                                  className={`font-medium text-sm sm:text-base ${
+                                    transaction.type === "INCOME" ? "text-green-600" : "text-red-600"
+                                  }`}
+                                >
                                   {transaction.type === "INCOME" ? "+" : "-"}
                                   {formatCurrency(transaction.amount)}
                                 </p>
                                 <p className="text-xs sm:text-sm text-muted-foreground mt-1">
-                                  {new Date(transaction.date).toLocaleDateString('en-IN', {
-                                    day: '2-digit',
-                                    month: 'short',
-                                    year: 'numeric'
+                                  {new Date(transaction.date).toLocaleDateString("en-IN", {
+                                    day: "2-digit",
+                                    month: "short",
+                                    year: "numeric",
                                   })}
                                 </p>
                               </div>
                             </div>
                           </Card>
                         ))}
-                        
+
                         {/* Bottom padding to ensure last item is visible */}
                         <div className="h-4"></div>
                       </>

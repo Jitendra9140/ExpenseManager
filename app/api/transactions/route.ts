@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { transactionSchema } from "@/lib/validations"
-import { getCurrentUser } from "@/app/auth"
+import { getCurrentUser } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 
 export async function POST(request: NextRequest) {

@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/app/auth"
+import { getCurrentUser } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { DataTable } from "./data-table"
 import { columns } from "./columns"

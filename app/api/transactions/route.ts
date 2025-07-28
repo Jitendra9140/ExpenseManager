@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from "next/server"
 import { transactionSchema } from "@/lib/validations"
 import { getCurrentUser } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
+import { ZodError } from "zod"
 
 export async function POST(request: NextRequest) {
   try {
@@ -40,8 +41,21 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(transaction)
     } catch (validationError) {
       console.error("Validation error:", validationError)
+      
+      // Type guard to check if it's a ZodError
+      if (validationError instanceof ZodError) {
+        return NextResponse.json(
+          { 
+            message: "Invalid data format", 
+            errors: validationError.errors 
+          },
+          { status: 400 }
+        )
+      }
+      
+      // Fallback for other validation errors
       return NextResponse.json(
-        { message: "Invalid data format", errors: validationError.errors },
+        { message: "Invalid data format" },
         { status: 400 }
       )
     }

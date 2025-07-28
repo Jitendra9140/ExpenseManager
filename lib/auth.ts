@@ -9,6 +9,9 @@ if (!JWT_SECRET) {
   throw new Error("JWT_SECRET environment variable is not set")
 }
 
+// Type assertion to ensure TypeScript knows JWT_SECRET is a string
+const SECRET: string = JWT_SECRET
+
 export interface User {
   id: string
   name: string
@@ -24,12 +27,12 @@ export async function verifyPassword(password: string, hashedPassword: string): 
 }
 
 export function generateToken(user: User): string {
-  return jwt.sign({ id: user.id, email: user.email, name: user.name }, JWT_SECRET, { expiresIn: "7d" })
+  return jwt.sign({ id: user.id, email: user.email, name: user.name }, SECRET, { expiresIn: "7d" })
 }
 
 export function verifyToken(token: string): User | null {
   try {
-    return jwt.verify(token, JWT_SECRET) as User
+    return jwt.verify(token, SECRET) as User
   } catch {
     return null
   }
